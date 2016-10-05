@@ -8,7 +8,7 @@ import {
   TextInput
 } from 'react-native';
 
-const Admin = require('./ios/latitudeDigital/Admin');
+const Admin = require('./Admin');
 
 class Login extends Component {
   constructor(props){
@@ -20,9 +20,9 @@ class Login extends Component {
   _onPress(){
     this.props.navigator.push({
       title: 'Admin',
-      component: Admin ,
-      passprops: {name: this.state.text}
-    })
+      component: Admin,
+      passProps: { name: this.state.text }
+    });
   }
   render (){
     return(
@@ -47,12 +47,13 @@ const styles = StyleSheet.create({
   },
   textInput: {
     backgroundColor: '#FFF',
-    textAlign: 'center',
+    textAlign: 'left',
     alignSelf: 'center',
     color: '#333333',
     height: 50,
     width: 250,
     marginBottom: 5,
+    paddingLeft: 5
   },
   button: {
     backgroundColor: '#FFF',
