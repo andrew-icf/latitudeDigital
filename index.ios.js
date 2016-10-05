@@ -8,6 +8,8 @@ import {
   TouchableOpacity
 } from 'react-native';
 
+const Login = require('./ios/latitudeDigital/Login');
+
 export default class NavigatorIOSApp extends Component {
   render() {
     return (
@@ -23,6 +25,15 @@ export default class NavigatorIOSApp extends Component {
 }
 
 class latitudeDigital extends Component {
+  constructor(props){
+    super(props);
+  }
+  _onLogin(){
+    this.props.navigator.push({
+      title: 'Login',
+      component: Login
+    });
+  }
   render() {
     return (
       <View style={styles.container}>
@@ -86,7 +97,7 @@ class latitudeDigital extends Component {
             San Francisco <Text style={styles.date}>11/19/16 - 11/28/16</Text>
           </Text>
         </View>
-        <TouchableOpacity onPress={this._onPressButton} style={styles.button}>
+        <TouchableOpacity onPress={() => this._onLogin()} style={styles.button}>
           <Text style={styles.buttonText}>Login</Text>
         </TouchableOpacity>
       </View>
