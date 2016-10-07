@@ -8,6 +8,8 @@ import {
   TextInput,
 } from 'react-native';
 
+const Domain = require('./Domain');
+
 class Survey extends Component{
   constructor(props){
     super(props);
@@ -19,7 +21,12 @@ class Survey extends Component{
       zip: 'Zip Code'
     }
   }
-
+_onDomain(){
+  this.props.navigator.push({
+    title: 'Enter in your Domain',
+    component: Domain
+  });
+}
   render(){
     return(
       <View style={styles.container}>
@@ -28,7 +35,7 @@ class Survey extends Component{
           <TextInput style={styles.textInput} onChangeText={(address) => this.setState({address})} value={this.state.address} />
           <TextInput style={styles.textInput} onChangeText={(address2) => this.setState({address2})} value={this.state.address2} />
           <TextInput style={styles.smallTextInput} onChangeText={(zip) => this.setState({zip})} value={this.state.zip} />
-          <TouchableOpacity style={styles.button}>
+          <TouchableOpacity style={styles.button} onPress={() => this._onDomain()}>
             <Text style={styles.buttonText}>Next</Text>
           </TouchableOpacity>
       </View>
