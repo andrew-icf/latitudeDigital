@@ -10,45 +10,32 @@ import {
 } from 'react-native';
 
 const PickerItemIOS = PickerIOS.Item;
+function carMake(){
+  return ['Acura', 'Audi', 'Buick', 'Cadillac', 'Chevrolet', 'Dodge',
+'Ford', 'GM', 'GMC', 'Honda', 'Jeep', 'Kia', 'Nissan', 'Subaru', 'Toyota',
+'Volkswagon', 'Volvo'];
+};
 
 const CAR_MAKES_AND_MODELS = {
-  amc: {
-    name: 'AMC',
-    models: ['AMX', 'Concord', 'Eagle', 'Gremlin', 'Matador', 'Pacer'],
+  zeroThirty: {
+    name: '0-30 days',
+    models: carMake(),
   },
-  alfa: {
-    name: 'Alfa-Romeo',
-    models: ['159', '4C', 'Alfasud', 'Brera', 'GTV6', 'Giulia', 'MiTo', 'Spider'],
+  oneThree: {
+    name: '1-3 months',
+    models: carMake(),
   },
-  aston: {
-    name: 'Aston Martin',
-    models: ['DB5', 'DB9', 'DBS', 'Rapide', 'Vanquish', 'Vantage'],
+  fourSix: {
+    name: '4-6 months',
+    models: carMake(),
   },
-  audi: {
-    name: 'Audi',
-    models: ['90', '4000', '5000', 'A3', 'A4', 'A5', 'A6', 'A7', 'A8', 'Q5', 'Q7'],
+  sevenPlus: {
+    name: '7+ months',
+    models: carMake(),
   },
-  austin: {
-    name: 'Austin',
-    models: ['America', 'Maestro', 'Maxi', 'Mini', 'Montego', 'Princess'],
-  },
-  borgward: {
-    name: 'Borgward',
-    models: ['Hansa', 'Isabella', 'P100'],
-  },
-  buick: {
-    name: 'Buick',
-    models: ['Electra', 'LaCrosse', 'LeSabre', 'Park Avenue', 'Regal',
-             'Roadmaster', 'Skylark'],
-  },
-  cadillac: {
-    name: 'Cadillac',
-    models: ['Catera', 'Cimarron', 'Eldorado', 'Fleetwood', 'Sedan de Ville'],
-  },
-  chevrolet: {
-    name: 'Chevrolet',
-    models: ['Astro', 'Aveo', 'Bel Air', 'Captiva', 'Cavalier', 'Chevelle',
-             'Corvair', 'Corvette', 'Cruze', 'Nova', 'SS', 'Vega', 'Volt'],
+  noPlans: {
+    name: 'No definite plans',
+    models: carMake(),
   },
 };
 
@@ -57,42 +44,41 @@ class When extends Component{
   constructor(props){
     super(props);
     this.state = {
-      carMake: 'cadillac',
+      time: 'zeroThirty',
       modelIndex: 3
     };
   }
 
   render() {
-    const make = CAR_MAKES_AND_MODELS[this.state.carMake];
+    const make = CAR_MAKES_AND_MODELS[this.state.time];
     const selectionString = make.name + ' ' + make.models[this.state.modelIndex];
     return (
-      <View>
-        <Text>Please choose a make for your car:</Text>
-        <PickerIOS
-          selectedValue={this.state.carMake}
-          onValueChange={(carMake) => this.setState({carMake, modelIndex: 0})}>
-          {Object.keys(CAR_MAKES_AND_MODELS).map((carMake) => (
+      <View style={styles.container}>
+        <Text style={styles.text}>When do you plan to require your next vehicle?</Text>
+        <PickerIOS style={styles.picker}
+          selectedValue={this.state.time}
+          onValueChange={(time) => this.setState({time, modelIndex: 0})}>
+          {Object.keys(CAR_MAKES_AND_MODELS).map((time) => (
             <PickerItemIOS
-              key={carMake}
-              value={carMake}
-              label={CAR_MAKES_AND_MODELS[carMake].name}
+              key={time}
+              value={time}
+              label={CAR_MAKES_AND_MODELS[time].name}
             />
           ))}
         </PickerIOS>
-        <Text>Please choose a model of {make.name}:</Text>
-        <PickerIOS
+        <PickerIOS style={styles.picker}
           selectedValue={this.state.modelIndex}
-          key={this.state.carMake}
+          key={this.state.time}
           onValueChange={(modelIndex) => this.setState({modelIndex})}>
-          {CAR_MAKES_AND_MODELS[this.state.carMake].models.map((modelName, modelIndex) => (
+          {CAR_MAKES_AND_MODELS[this.state.time].models.map((modelName, modelIndex) => (
             <PickerItemIOS
-              key={this.state.carMake + '_' + modelIndex}
+              key={this.state.time + '_' + modelIndex}
               value={modelIndex}
               label={modelName}
             />
           ))}
         </PickerIOS>
-        <Text>You selected: {selectionString}</Text>
+        <Text style={styles.text}>{selectionString}</Text>
       </View>
     );
   }
@@ -102,7 +88,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'center',
     backgroundColor: '#F5FCFF'
   },
   textInput: {
@@ -121,7 +106,7 @@ const styles = StyleSheet.create({
     color: '#333333',
     marginBottom: 10,
     marginTop: 10,
-    fontSize: 26,
+    fontSize: 20,
     fontWeight: '600',
     width: 350
   },
@@ -137,6 +122,9 @@ const styles = StyleSheet.create({
     fontSize: 18,
     color: '#FFF',
     fontWeight: '700'
+  },
+  picker: {
+    marginTop: -40
   }
 });
 
