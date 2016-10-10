@@ -9,6 +9,7 @@ import {
   Switch
 } from 'react-native';
 
+const When = require('./When');
 
 class Domain extends Component{
   constructor(props){
@@ -25,7 +26,7 @@ class Domain extends Component{
 
   _onWhen(){
     this.props.navigator.push({
-      title: "When do you plan to acquire your next vehicle?",
+      title: "Your next vehicle",
       component: When
     })
   }
