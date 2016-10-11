@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   TextInput,
   PickerIOS,
+  Switch
 } from 'react-native';
 
 const PickerItemIOS = PickerIOS.Item;
@@ -16,7 +17,7 @@ function carMake(){
 'Volkswagon', 'Volvo'];
 };
 
-const CAR_MAKES_AND_MODELS = {
+const time_and_cars = {
   zeroThirty: {
     name: '0-30 days',
     models: carMake(),
@@ -45,32 +46,36 @@ class When extends Component{
     super(props);
     this.state = {
       time: 'zeroThirty',
-      modelIndex: 3
+      modelIndex: 3,
+      trueSwitchIsOn1: true,
+      falseSwitchIsOn1: false,
+      trueSwitchIsOn2: true,
+      falseSwitchIsOn2: false,
     };
   }
 
   render() {
-    const make = CAR_MAKES_AND_MODELS[this.state.time];
-    const selectionString = make.name + ' ' + make.models[this.state.modelIndex];
+    // const make = time_and_cars[this.state.time];
+    // const selectionString = make.name + ' ' + make.models[this.state.modelIndex];
     return (
       <View style={styles.container}>
         <Text style={styles.text}>When do you plan to require your next vehicle?</Text>
         <PickerIOS style={styles.picker}
           selectedValue={this.state.time}
           onValueChange={(time) => this.setState({time, modelIndex: 0})}>
-          {Object.keys(CAR_MAKES_AND_MODELS).map((time) => (
+          {Object.keys(time_and_cars).map((time) => (
             <PickerItemIOS
               key={time}
               value={time}
-              label={CAR_MAKES_AND_MODELS[time].name}
+              label={time_and_cars[time].name}
             />
           ))}
         </PickerIOS>
-        <PickerIOS style={styles.picker}
+        <PickerIOS style={styles.pickerTwo}
           selectedValue={this.state.modelIndex}
           key={this.state.time}
           onValueChange={(modelIndex) => this.setState({modelIndex})}>
-          {CAR_MAKES_AND_MODELS[this.state.time].models.map((modelName, modelIndex) => (
+          {time_and_cars[this.state.time].models.map((modelName, modelIndex) => (
             <PickerItemIOS
               key={this.state.time + '_' + modelIndex}
               value={modelIndex}
@@ -78,8 +83,21 @@ class When extends Component{
             />
           ))}
         </PickerIOS>
-        <Text style={styles.text}>{selectionString}</Text>
         <Text style={styles.text2}>How do you plan to acquire your next vehicle?</Text>
+        <Text style={styles.text}>
+          <Switch style={styles.domainSwitch}
+            onValueChange={(value) => this.setState({falseSwitchIsOn1: value})}
+            value={this.state.falseSwitchIsOn1}
+          />
+          PURCHASE
+        </Text>
+        <Text style={styles.text}>
+          <Switch style={styles.domainSwitch}
+            onValueChange={(value) => this.setState({falseSwitchIsOn2: value})}
+            value={this.state.falseSwitchIsOn2}
+          />
+          LEASE
+        </Text>
       </View>
     );
   }
@@ -134,7 +152,10 @@ const styles = StyleSheet.create({
     fontWeight: '700'
   },
   picker: {
-    marginTop: -40
+    marginTop: -30
+  },
+  pickerTwo: {
+    marginTop: -50
   }
 });
 
