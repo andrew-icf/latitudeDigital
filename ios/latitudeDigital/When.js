@@ -79,6 +79,7 @@ class When extends Component{
           ))}
         </PickerIOS>
         <Text style={styles.text}>{selectionString}</Text>
+        <Text style={styles.text2}>How do you plan to acquire your next vehicle?</Text>
       </View>
     );
   }
@@ -107,6 +108,15 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     marginTop: 10,
     fontSize: 20,
+    fontWeight: '600',
+    width: 350
+  },
+  text2: {
+    textAlign: 'center',
+    color: '#333333',
+    marginBottom: 10,
+    marginTop: 10,
+    fontSize: 16,
     fontWeight: '600',
     width: 350
   },
